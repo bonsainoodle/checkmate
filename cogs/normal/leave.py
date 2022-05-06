@@ -56,7 +56,7 @@ class Leave(commands.Cog, name="leave"):
                 await role.edit(reason=None, permissions=perms)
 
         await custom_embed(
-            self.config["leaveMessage"],
+            "I had a nice time there... but every good thing comes to an end. Bye!",
             ctx.channel,
             True,
         )
