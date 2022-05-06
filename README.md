@@ -23,9 +23,9 @@ they should look like this:
 ```credentials.json``` :
 ```json
 {
-    "token": str,
-    "gmailUser": str,
-    "gmailPassword": str
+    "token": "str",
+    "gmailUser": "str",
+    "gmailPassword": "str"
 }
 ```
 | Key | Description | Default | Required |
@@ -37,21 +37,21 @@ they should look like this:
 ```config.json``` :
 ```json
 {
-    "prefix": str,
-    "checkedRoleName": str,
-    "uncheckedRoleName": str,
-    "checkChannelName": str,
-    "userInDbEndpoint": str,
-    "addUserEndpoint": str,
-    "checkChannelMessage": str,
-    "basicErrorMessage": str,
-    "checkProcessAskEmailMessage": str,
-    "checkProcessAskCodeMessage": str,
-    "checkProcessTimeOutErrorMessage": str,
-    "checkProcessAccountErrorMessage": str,
-    "checkProcessCodeErrorMessage": str,
-    "checkProcessEmailErrorMessage": str,
-    "checkProcessCompletedMessage": str
+    "prefix": "str",
+    "checkedRoleName": "str",
+    "uncheckedRoleName": "str",
+    "checkChannelName": "str",
+    "userInDbEndpoint": "str",
+    "addUserEndpoint": "str",
+    "checkChannelMessage": "str",
+    "basicErrorMessage": "str",
+    "checkProcessAskEmailMessage": "str",
+    "checkProcessAskCodeMessage": "str",
+    "checkProcessTimeOutErrorMessage": "str",
+    "checkProcessAccountErrorMessage": "str",
+    "checkProcessCodeErrorMessage": "str",
+    "checkProcessEmailErrorMessage": "str",
+    "checkProcessCompletedMessage": "str"
 }
 ```
 | Key | Description | Default | Required |
@@ -73,7 +73,7 @@ they should look like this:
 | checkProcessCompletedMessage | the message shown to the user when they complete the verification | None | True | 
 
 ## run the bot
-execute the ```client.py``` file at the root of ```checkmate``` directory.
+execute the ```client.py``` file at the root of the ```checkmate``` directory.
 ```bash
 python client.py
 ```
