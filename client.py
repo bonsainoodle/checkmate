@@ -89,17 +89,18 @@ async def load_commands(command_type: str) -> None:
                 print(f"Failed to load extension {extension}\n{exception}")
 
 
+async def main():
+    async with client:
+        await load_commands("normal")
+        await client.run(credentials["token"])
+
+
 if __name__ == "__main__":
     """
     This will automatically load slash commands and normal commands located in their respective folder.
 
     If you want to remove slash commands, which is not recommended due to the Message Intent being a privileged intent, you can remove the loading of slash commands below.
     """
-
-    async def main():
-        async with client:
-            await load_commands("normal")
-            await client.run(credentials["token"])
 
     asyncio.run(main())
 

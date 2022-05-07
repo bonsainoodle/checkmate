@@ -92,5 +92,5 @@ class Enable(commands.Cog, name="enable"):
             )
 
 
-def setup(client):
-    client.add_cog(Enable(client))
+async def setup(client):
+    await client.add_cog(Enable(client))
