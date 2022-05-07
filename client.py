@@ -77,22 +77,16 @@ async def status_task() -> None:
     await client.change_presence(activity=discord.Game(random.choice(statuses)))
 
 
-async def load_commands(command_type: str) -> None:
+def load_commands(command_type: str) -> None:
     for file in os.listdir(f"./cogs/{command_type}"):
         if file.endswith(".py"):
             extension = file[:-3]
             try:
-                await client.load_extension(f"cogs.{command_type}.{extension}")
+                client.load_extension(f"cogs.{command_type}.{extension}")
                 print(f"Loaded extension '{extension}'")
             except Exception as e:
                 exception = f"{type(e).__name__}: {e}"
                 print(f"Failed to load extension {extension}\n{exception}")
-
-
-async def main():
-    async with client:
-        await load_commands("normal")
-        await client.start(credentials["token"])
 
 
 if __name__ == "__main__":
@@ -101,8 +95,9 @@ if __name__ == "__main__":
 
     If you want to remove slash commands, which is not recommended due to the Message Intent being a privileged intent, you can remove the loading of slash commands below.
     """
-
-    asyncio.run(main())
+    
+    load_commands("normal")
+    client.run(credentials["token"])
 
 
 @client.event
