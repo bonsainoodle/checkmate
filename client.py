@@ -77,12 +77,12 @@ async def status_task() -> None:
     await client.change_presence(activity=discord.Game(random.choice(statuses)))
 
 
-def load_commands(command_type: str) -> None:
+async def load_commands(command_type: str) -> None:
     for file in os.listdir(f"./cogs/{command_type}"):
         if file.endswith(".py"):
             extension = file[:-3]
             try:
-                client.load_extension(f"cogs.{command_type}.{extension}")
+                await client.load_extension(f"cogs.{command_type}.{extension}")
                 print(f"Loaded extension '{extension}'")
             except Exception as e:
                 exception = f"{type(e).__name__}: {e}"
@@ -97,7 +97,7 @@ if __name__ == "__main__":
     """
 
     # load_commands("slash") uncomment if slash commands are added to the bot
-    load_commands("normal")
+    asyncio.run(load_commands("normal"))
 
 
 @client.event
