@@ -60,10 +60,25 @@ class Disable(commands.Cog, name="disable"):
             # Give all perms to unchecked role
             await uncheckedRole.edit(reason=None, permissions=perms) if uncheckedRole else None
 
-            # Delete check channel
-            checkInfosChannel = get(ctx.guild.channels, name=self.config["checkChannelName"])
+            for role in ctx.guild.roles:
+                # Reset all perms for default role
+                if role.name == "@everyone":
+                    perms = discord.Permissions()
+                    perms.update(
+                        read_messages=True,
+                        read_message_history=True,
+                        connect=True,
+                        speak=True,
+                        send_messages=True,
+                        change_nickname=True,
+                        view_channel=True,
+                    )
+                    await role.edit(reason=None, permissions=perms)
 
-            await checkInfosChannel.delete() if checkInfosChannel else None
+            # Delete check channel
+            checkChannel = get(ctx.guild.channels, name=self.config["checkChannelName"])
+
+            await checkChannel.delete() if checkChannel else None
 
             await custom_embed(
                 "Bot disabled!",
