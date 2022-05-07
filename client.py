@@ -77,12 +77,12 @@ async def status_task() -> None:
     await client.change_presence(activity=discord.Game(random.choice(statuses)))
 
 
-async def load_commands(command_type: str) -> None:
+def load_commands(command_type: str) -> None:
     for file in os.listdir(f"./cogs/{command_type}"):
         if file.endswith(".py"):
             extension = file[:-3]
             try:
-                await client.load_extension(f"cogs.{command_type}.{extension}")
+                client.load_extension(f"cogs.{command_type}.{extension}")
                 print(f"Loaded extension '{extension}'")
             except Exception as e:
                 exception = f"{type(e).__name__}: {e}"
