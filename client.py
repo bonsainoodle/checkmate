@@ -92,7 +92,7 @@ async def load_commands(command_type: str) -> None:
 async def main():
     async with client:
         await load_commands("normal")
-        await client.run(credentials["token"])
+        await client.start(credentials["token"])
 
 
 if __name__ == "__main__":
