@@ -96,8 +96,12 @@ if __name__ == "__main__":
     If you want to remove slash commands, which is not recommended due to the Message Intent being a privileged intent, you can remove the loading of slash commands below.
     """
 
-    # load_commands("slash") uncomment if slash commands are added to the bot
-    asyncio.run(load_commands("normal"))
+    async def main():
+        async with client:
+            await load_commands("normal")
+            await client.run(credentials["token"])
+
+    asyncio.run(main())
 
 
 @client.event
@@ -391,7 +395,3 @@ async def on_check_completed(guild, member, email) -> None:
             member,
             False,
         )
-
-
-# Run the bot with the token
-client.run(credentials["token"])
