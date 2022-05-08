@@ -64,5 +64,5 @@ class Leave(commands.Cog, name="leave"):
         await ctx.guild.leave()
 
 
-def setup(client):
-    client.add_cog(Leave(client))
+async def setup(client):
+    await client.add_cog(Leave(client))

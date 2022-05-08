@@ -77,27 +77,22 @@ async def status_task() -> None:
     await client.change_presence(activity=discord.Game(random.choice(statuses)))
 
 
-def load_commands(command_type: str) -> None:
+async def load_commands(command_type: str) -> None:
     for file in os.listdir(f"./cogs/{command_type}"):
         if file.endswith(".py"):
             extension = file[:-3]
             try:
-                client.load_extension(f"cogs.{command_type}.{extension}")
+                await client.load_extension(f"cogs.{command_type}.{extension}")
                 print(f"Loaded extension '{extension}'")
             except Exception as e:
                 exception = f"{type(e).__name__}: {e}"
                 print(f"Failed to load extension {extension}\n{exception}")
 
 
-if __name__ == "__main__":
-    """
-    This will automatically load slash commands and normal commands located in their respective folder.
-
-    If you want to remove slash commands, which is not recommended due to the Message Intent being a privileged intent, you can remove the loading of slash commands below.
-    """
-    
-    load_commands("normal")
-    client.run(credentials["token"])
+async def main() -> None:
+    async with client:
+        await load_commands("normal")
+        await client.start(credentials["token"])
 
 
 @client.event
@@ -106,10 +101,11 @@ async def on_message(message: discord.Message) -> None:
     The code in this event is executed every time someone sends a message, with or without the prefix
     :param message: The message that was sent.
     """
-
     if message.author == client.user or message.author.bot:
         return
+
     await client.process_commands(message)
+    print("hryyyy")
 
 
 @client.event
@@ -391,3 +387,11 @@ async def on_check_completed(guild, member, email) -> None:
             member,
             False,
         )
+
+
+if __name__ == "__main__":
+    """
+    This will automatically load slash commands and normal commands located in their respective folder.
+    If you want to remove slash commands, which is not recommended due to the Message Intent being a privileged intent, you can remove the loading of slash comma$    
+    """
+    asyncio.run(main())
