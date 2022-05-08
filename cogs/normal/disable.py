@@ -93,5 +93,5 @@ class Disable(commands.Cog, name="disable"):
             )
 
 
-async def setup(client):
-    await client.add_cog(Disable(client))
+def setup(client):
+    client.add_cog(Disable(client))
