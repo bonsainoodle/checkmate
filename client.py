@@ -36,6 +36,7 @@ else:
 intents = discord.Intents.default()
 intents.members = True
 intents.reactions = True
+intents.message_content = True
 
 client = Bot(command_prefix=config["prefix"], intents=intents)
 # Removes the default help command of discord.py to be able to create our custom help command.
@@ -77,12 +78,12 @@ async def status_task() -> None:
     await client.change_presence(activity=discord.Game(random.choice(statuses)))
 
 
-def load_commands(command_type: str) -> None:
+async def load_commands(command_type: str) -> None:
     for file in os.listdir(f"./cogs/{command_type}"):
         if file.endswith(".py"):
             extension = file[:-3]
             try:
-                client.load_extension(f"cogs.{command_type}.{extension}")
+                await client.load_extension(f"cogs.{command_type}.{extension}")
                 print(f"Loaded extension '{extension}'")
             except Exception as e:
                 exception = f"{type(e).__name__}: {e}"
@@ -382,14 +383,15 @@ async def on_check_completed(guild, member, email) -> None:
         )
 
 
-def main() -> None:
-    load_commands("normal")
-    client.run(credentials["token"])
-    
+async def main() -> None:
+    async with client:
+        await load_commands("normal")
+        await client.start(credentials["token"])
+
 
 if __name__ == "__main__":
     """
     This will automatically load slash commands and normal commands located in their respective folder.
-    If you want to remove slash commands, which is not recommended due to the Message Intent being a privileged intent, you can remove the loading of slash comma$    
+    If you want to remove slash commands, which is not recommended due to the Message Intent being a privileged intent, you can remove the loading of slash command.
     """
-    main()
+    asyncio.run(main())

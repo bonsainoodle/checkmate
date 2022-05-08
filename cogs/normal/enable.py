@@ -87,10 +87,10 @@ class Enable(commands.Cog, name="enable"):
         else:
             await custom_embed(
                 "Bot is already enabled!",
-                ctx.channel.id,
+                ctx.channel,
                 False,
             )
 
 
-def setup(client):
-    client.add_cog(Enable(client))
+async def setup(client):
+    await client.add_cog(Enable(client))
