@@ -13,7 +13,7 @@ you must invite the bot on the discord server you want it to authenticate users!
 the bot requires at least python 3.8
 
 ```bash
-git clone https://github.com/EsprIx/checkmate
+git clone https://github.com/bonsainoodle/checkmate
 ```
 
 then run under the `checkmate` directory
